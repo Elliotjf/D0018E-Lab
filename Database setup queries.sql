@@ -29,6 +29,3 @@ CREATE TABLE shopping_cart (
 
 
 DESCRIBE shopping_cart;
-
-
-//fsff
