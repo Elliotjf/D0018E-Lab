@@ -1,0 +1,26 @@
+<h1>{{ product.name }}</h1>
+<p>{{ product.description }}</p>
+<p>Price: ${{ product.price }}</p>
+<form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Add to Cart</button>
+  </form>
+
+{% if product.get_average_rating %}
+  <p>Average rating: {{ product.get_average_rating }}</p>
+{% endif %}
+
+<!-- display the reviews -->
+{% for review in product.get_reviews %}
+  <p>{{ review.user.username }} said: "{{ review.comment }}"</p>
+{% empty %}
+  <p>No reviews yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+  <a href="{% url 'review' slug=product.slug %}">Add a review</a>
+{% else %}
+  <p>You must be <a href="{% url 'login' %}">logged in</a> to add a review.</p>
+{% endif %}
+
+
